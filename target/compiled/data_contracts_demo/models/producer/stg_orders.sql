@@ -7,6 +7,6 @@ select
     order_id,
     customer_id,
     order_status,
-    amount as order_amount,
+    amount,
     order_date
 from "dev"."main"."raw_orders"

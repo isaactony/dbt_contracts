@@ -7,6 +7,6 @@ select
     order_id,
     customer_id,
     order_status,
-    amount,,
+    amount,
     order_date
 from {{ ref('raw_orders') }}
