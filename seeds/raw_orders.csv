@@ -1,0 +1,11 @@
+order_id,customer_id,order_status,amount,order_date
+1001,501,completed,49.99,2026-08-01
+1002,502,completed,12.50,2026-08-01
+1003,501,refunded,49.99,2026-08-02
+1004,503,completed,88.00,2026-08-02
+1005,504,pending,15.75,2026-08-03
+1006,502,completed,23.20,2026-08-03
+1007,505,completed,102.40,2026-08-04
+1008,503,cancelled,5.00,2026-08-04
+1009,506,completed,61.10,2026-08-05
+1010,504,completed,9.99,2026-08-05

@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: stg_orders
+    description: >
+      Contracted interface to the Orders team's order data. Downstream
+      teams should build on this model, not on raw_orders directly, since
+      this is the model whose shape is guaranteed not to change silently.
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: order_id
+        data_type: integer
+        constraints:
+          - type: not_null
+      - name: customer_id
+        data_type: integer
+        constraints:
+          - type: not_null
+      - name: order_status
+        data_type: varchar
+      - name: amount
+        data_type: double
+      - name: order_date
+        data_type: date

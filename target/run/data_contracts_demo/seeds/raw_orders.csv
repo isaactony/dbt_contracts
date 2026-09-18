@@ -1,0 +1,11 @@
+
+    
+    
+    truncate table "dev"."main"."raw_orders";
+    -- dbt seed --
+    
+          COPY "dev"."main"."raw_orders" FROM '/Users/isaactonyloi/Downloads/data_contracts_demo/seeds/raw_orders.csv' (FORMAT CSV, HEADER TRUE, DELIMITER ',')
+        
+
+;
+  

@@ -1,0 +1,36 @@
+name: dbt data contract check
+
+# Runs on every PR that touches the project. This is the check that would
+# have caught the amount -> order_amount rename before it ever reached
+# main, instead of three days later when the downstream team's dashboard
+# quietly started showing wrong numbers.
+
+on:
+  pull_request:
+    paths:
+      - 'models/**'
+      - 'seeds/**'
+      - 'dbt_project.yml'
+
+jobs:
+  dbt-build:
+    runs-on: ubuntu-latest
+    env:
+      DBT_PROFILES_DIR: ${{ github.workspace }}/dbt_profile
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dbt
+        run: pip install dbt-core dbt-duckdb
+
+      - name: Build all models (this is where a contract violation fails the PR)
+        run: dbt build
+
+      - name: Explain a failure, if there was one
+        if: failure()
+        run: |
+          echo "::error::A model's contract was violated. If you changed a column name or type in a producer model without updating models/producer/producer.yml (or the downstream model that depends on it), that is almost certainly why this failed. See the dbt error above for the exact column and mismatch."
